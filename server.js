@@ -7,11 +7,15 @@ const nunjucks = require('nunjucks')
 const bodyParser = require('body-parser')
 const auth = require('./middleware/auth')
 const {sequelize, User} = require('./models')
-
+const socket = require('socket.io')
+const http = require('http')
+const server = http.createServer(app)
+const io = socket(server)
 
 app.set('view engine', 'html')
 
 app.use(express.static('public'));
+// app.use(express.static('node_modules/socket.io/client-dist'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:false}))
 
@@ -30,7 +34,6 @@ sequelize.sync({force:false})
 })
 
 app.get('/', (req,res)=>{
-    let {msg} = req.query;
     res.render('index')
 })
 
@@ -93,12 +96,32 @@ app.post('/auth/local/login',async (req,res)=>{
 })
 
 
-app.get('/chat',(req,res)=>{
-    console.log('asdf')
+app.get('/chat',auth,(req,res)=>{
     res.render('chat')
 })
 
 
-app.listen(3000,()=>{
+io.sockets.on('connection',socket=>{
+    let cookie = socket.handshake.headers.cookie
+    
+    if(cookie != undefined){
+        let cookie_array = cookie.split('; ')
+        let obj = new Object
+        cookie_array.forEach(v=>{
+            [name, value] = v.split('=')
+            obj[name] = value
+        })
+        let {AccessToken} = obj
+        let payload = Buffer.from(AccessToken.split('.')[1],'base64').toString();
+        var {userid} = JSON.parse(payload)
+    }
+    socket.emit('userid',userid)
+
+    socket.on('send',data=>{
+        socket.broadcast.emit('msg',{userid:userid,data:data})
+    })
+})
+
+server.listen(3000,()=>{
     console.log('server start port: 3000');
 })

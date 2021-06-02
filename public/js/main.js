@@ -3,8 +3,6 @@ function loginBtnFn(){
 }
 
 function popupClose(event){
-    console.log(event.target)
-    console.log(this)
     if(event.target == this){
         this.classList.remove('open')
     }
@@ -34,10 +32,7 @@ async function localLoginFn(){
     //     },
     //     body:`userid=${userid.value}&userpw=${userpw.value}`,
     // }
-    console.log(JSON.stringify({
-        userid:userid.value,
-        userpw:userpw.value,
-    }))
+
     let options = {
         method:'POST',
         headers:{
@@ -63,16 +58,32 @@ async function localLoginFn(){
     }   
 }
 
+async function userinfoFn(){
+    let url = 'http://localhost:3000/user/info'
+    let options = {method:'GET'}
+    let response = await fetch(url,options)
+    let result = await response.text()
+    try{
+        let json = JSON.parse(result)
+        alert(json.msg)
+        return
+    }catch(e){
+        alert(`아이디 : ${result}`)
+    }
+}
+
 
 function init(){
     const urlSearch = new URLSearchParams(location.search);
     const msg = urlSearch.get('msg')
+    const userinfo = document.querySelector('#userinfo')
     const loginBtn = document.querySelector('#loginBtn')
     layerPopup = document.querySelector('.layerPopup')
     const localLogin = document.querySelector('#localLogin')
     loginBtn.addEventListener('click',loginBtnFn)
     layerPopup.addEventListener('click', popupClose)
     localLogin.addEventListener('click',localLoginFn)
+    userinfo.addEventListener('click',userinfoFn)
 
     if(msg == '회원가입이 완료되었습니다'){
         loginBtnFn()
