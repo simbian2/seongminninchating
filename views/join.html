@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="/js/join.js"></script>
+    <link href="/css/join.css" rel="stylesheet">
+</head>
+<body>
+    <div id="login_form">
+        아이디 :
+        <input id="input_text" class="userid" type="text" placeholder="ID">
+        <p id="check_msg" class="userid_msg"></p>
+        비밀번호 :
+        <input id="input_text" class="userpw"  type="password" placeholder="PASSWORD"></br>
+        비밀번호 확인 :
+        <input id="input_text" class="userpw_check" type="password" placeholder="PASSWORD_CHECK"></br>
+        이름 :
+        <input id="input_text" class="username" type="text" placeholder="NAME"></br>
+        <div id="radio_box">
+            <input class="gender" name="gender" type="radio" value="0" checked="checked"><span id="radio_text">Male</span>
+            <input class="gender" name="gender" type="radio" value="1"><span id="radio_text">Female</span>
+        </div>
+        이메일 :
+        <input id="input_text" class="useremail" type="text" placeholder="E-MAIL">
+        <div id="image_text">IMAGE UPLOAD</div>
+        <input id="input_image" name="img" type="file">
+        <div id="space" ></div>
+        <button id = "submitBtn">회원가입</button>
+    </div>
+</body>
+</html>
