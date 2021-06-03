@@ -10,7 +10,7 @@ function init(){
 async function useridFn(){
     const userid = document.querySelector('.userid').value
     const check_msg = document.querySelector('#check_msg')
-    let result = await fetch(`http://localhost:3000/user/userid_check?userid=${userid}`)
+    let result = await fetch(`http://localhost:7000/user/userid_check?userid=${userid}`)
     let {check}= await result.json()
     if(check){
         check_msg.innerHTML = '사용 가능한 아이디입니다.'
@@ -37,7 +37,7 @@ async function submitBtnFn(){
         return
     }
 
-    let url = 'http://localhost:3000/user/join_success'
+    let url = 'http://localhost:7000/user/join_success'
     let options = {
         method:'POST',
         headers:{
@@ -53,5 +53,5 @@ async function submitBtnFn(){
         }),
     }
     let response = await fetch(url,options);
-    window.location.href = 'http://localhost:3000/?msg=회원가입이 완료되었습니다'
+    window.location.href = 'http://localhost:7000/?msg=회원가입이 완료되었습니다'
 }

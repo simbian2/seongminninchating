@@ -24,7 +24,7 @@ chatBtn.addEventListener('click' ,async ()=>{
 
 async function getChatRoom(){
     
-    let url = "http://localhost:3000/chat"
+    let url = "http://localhost:7000/chat"
     let options = {method:'GET'}
     let response = await fetch(url,options)
     let result = await response.text()

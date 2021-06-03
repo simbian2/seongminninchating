@@ -24,7 +24,7 @@ async function localLoginFn(){
         userpw.focus()
         return
     }
-    let url = 'http://localhost:3000/auth/local/login'
+    let url = 'http://localhost:7000/auth/local/login'
     // let options = {
     //     method:'POST',
     //     headers:{
@@ -59,7 +59,7 @@ async function localLoginFn(){
 }
 
 async function userinfoFn(){
-    let url = 'http://localhost:3000/user/info'
+    let url = 'http://localhost:7000/user/info'
     let options = {method:'GET'}
     let response = await fetch(url,options)
     let result = await response.text()

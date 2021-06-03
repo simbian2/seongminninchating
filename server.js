@@ -122,6 +122,6 @@ io.sockets.on('connection',socket=>{
     })
 })
 
-server.listen(3000,()=>{
+server.listen(7000,()=>{
     console.log('server start port: 3000');
 })
